@@ -1,0 +1,153 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header class="navbar navbar-dark bg-primary sticky-top shadow flex-md-nowrap p-0">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+            {% block brand %}Company name{% endblock %}
+        </a>
+        
+        <button class="navbar-toggler d-md-none" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav ms-auto flex-row">
+            <li class="nav-item dropdown me-4">
+                <a class="nav-link dropdown-toggle d-flex align-items-center" 
+                   href="#" role="button" data-bs-toggle="dropdown">
+                    <i class="fa fa-user me-3"></i>
+                    <span>{% block username %}{{ user.first_name }}{% endblock %}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form method="post" action="{% url 'user_core:logout' %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item" style="border:none; background:none">
+                                Sign out
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        {% endif %}
+    </header>
+    {% if user.is_authenticated %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <!-- Main Navigation -->
+                    <ul class="nav flex-column">
+                        {% block nav_items %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == "section-list" %}active{% endif %}" href="{% url 'inventory_app:section-list' %}">
+                                <i class="fas fa-layer-group"></i>Sections
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-file feather"></i>
+                                Orders
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-shopping-cart feather"></i>
+                                Products
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-users feather"></i>
+                                Customers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-bar-chart feather"></i>
+                                Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-layer-group feather"></i>
+                                Integrations
+                            </a>
+                        </li>
+                        {% endblock %}
+                    </ul>
+
+                    <!-- Secondary Navigation -->
+                    {% block secondary_nav %}
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Saved reports</span>
+                        <a class="link-secondary" href="#">
+                            <i class="fa fa-plus-circle feather"></i>
+                        </a>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-file-alt feather"></i>
+                                Current month
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-file-alt feather"></i>
+                                Last quarter
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-file-alt feather"></i>
+                                Social engagement
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-file-alt feather"></i>
+                                Year-end sale
+                            </a>
+                        </li>
+                    </ul>
+                    {% endblock %}
+                </div>
+            </nav>
+            {% endif %}
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                {% block content %}
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                </div>
+                <p>Welcome to your dashboard!</p>
+                {% endblock %}
+            </main>
+        </div>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

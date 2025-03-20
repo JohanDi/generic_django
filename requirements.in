@@ -1,0 +1,13 @@
+django
+django-cors-headers
+# DATABASE RELATED
+psycopg2-binary
+dj-database-url
+# SETTINGS
+dotenv
+# DJANGO RENDERED PAGES
+django-crispy-forms
+crispy-bootstrap5
+# DJANGO REST FRAMEWORK
+djangorestframework
+django-filter
