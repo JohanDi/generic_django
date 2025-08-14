@@ -9,7 +9,7 @@
 
 <!--Title section-->
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h2 class="text-primary">{{ verbose_name_plural|capfirst }}</h2>
+    <h2 class="text-secondary">{{ verbose_name_plural|capfirst }}</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group me-2">
         <a href="{% url create_url %}" class="btn btn-sm btn-outline-secondary">
@@ -171,7 +171,7 @@
 }
 
 .page-link {
-  color: var(--bs-primary);
+  color: var(--bs-secondary);
   border-radius: 0.4rem;
   border: 1px solid #dee2e6;
   background-color: #fff;
@@ -179,7 +179,7 @@
 }
 
 .page-link:hover, .page-item.active .page-link {
-  background-color: var(--bs-primary);
+  background-color: var(--bs-secondary);
   color: #fff;
   border-color: var(--bs-primary);
 }

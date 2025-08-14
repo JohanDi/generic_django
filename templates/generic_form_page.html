@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mt-4">
-  <h2 class="mb-4">{% if is_update %}Edit{% else %}Add{% endif %} Section</h2>
+  <h2 class="mb-4">{% if is_update %}Edit{% else %}Add{% endif %} {{ verbose_name|capfirst }}</h2>
   <form method="post">
     {% csrf_token %}
     {{ form|crispy }}
