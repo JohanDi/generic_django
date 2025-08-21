@@ -290,19 +290,15 @@ STATICFILES_DIRS = [
 *************************
 Settings for Django views that render HTML pages.
 
-- HOME_REDIRECT_URL: The URL to redirect to when the root URL is accessed.
 - LOGIN_REDIRECT_URL: The URL to redirect to after a user logs in.
 - LOGIN_URL: The URL to redirect to if a user is not logged in and tries to access a protected page.
     A Django page can be protected using the LoginRequiredMixin on class based views. Alternatively, the login_required
     decorator can be used on function based views.
-- GLOBAL_CONTEXT: A dictionary of key-value pairs that will be available in all templates.
-    This is achieved by adding the context processor utils.context_processors.global_context to the TEMPLATES setting.
-
 """
 
 # Change this to the URL you want users to be redirected to after logging in.
-HOME_REDIRECT_URL = "user_core:user-list"
-LOGIN_REDIRECT_URL = "home"
+
+LOGIN_REDIRECT_URL = "inventory_app:section-list"
 LOGIN_URL="user_core:login"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

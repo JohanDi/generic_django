@@ -10,7 +10,7 @@ from ..models import User
 
 class CustomLoginView(LoginView):
     template_name = 'my_django_generics/bootstrap5/auth/login.html'
-    redirect_authenticated_user = True # Redirects authenticated users to the home page
+    redirect_authenticated_user = True # Redirects authenticated user
 
 class CustomLogoutView(LogoutView):
     template_name = 'my_django_generics/bootstrap5/auth/logged_out.html'

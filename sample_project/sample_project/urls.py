@@ -24,6 +24,7 @@ from django.urls import path, include
 from django.views.generic import RedirectView, View, TemplateView
 from django.conf import settings
 from django.shortcuts import resolve_url
+from rest_framework.reverse import reverse_lazy
 
 
 class CustomApiRootView(TemplateView):
@@ -51,23 +52,8 @@ django_page_urlpatterns = [
     path('inventory_app/', include('sample_project.inventory_app.urls.page_urls')),
 ]
 
-
-class HomeView(LoginRequiredMixin, View):
-    """This view checks if the setting HOME_REDIRECT_URL is set and redirects to that URL if it is.
-    If it is not set, it renders the home.html template.
-    """
-    def get(self, request, *args, **kwargs):
-        # print(request.META.get('HTTP_REFERER'))
-        if hasattr(settings, 'HOME_REDIRECT_URL') and settings.HOME_REDIRECT_URL:
-            return RedirectView.as_view(url=resolve_url(settings.HOME_REDIRECT_URL))(request)
-        else:
-            return TemplateResponse(request, 'my_django_generics/bootstrap5/home.html', {
-                'breadcrumblist': [('/', '/')],
-                'title': 'Home',
-            })
-
 urlpatterns = [
-    path('', HomeView.as_view(), name='home'),
+    path('', RedirectView.as_view(url=reverse_lazy('inventory_app:section-list'))),
     path('admin/', admin.site.urls),
     path('pages/', include(django_page_urlpatterns)),
     path('api/', include(api_urlpatterns)),
